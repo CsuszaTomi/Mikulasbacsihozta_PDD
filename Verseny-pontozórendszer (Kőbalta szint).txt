@@ -1,0 +1,22 @@
+﻿Szélesbálási Fedettpályás Kalaplengető Verseny
+
+
+A Szélesbálási Fedettpályás Kalaplengető Verseny nagy hagyományú verseny. A versenyzők egyénileg versenyeznek. A soron következő mindig egy égő gyertyával szemben áll fel 3 méterre egy kijelölt vonal mögött, és a kalapja segítségével 10 másodperc alatt megpróbálja eloltani a gyertyát. A kalapot egyik vagy mindkét kézzel lehet fogni, de eldobni, elengedni nem lehet. A versenyző 10 ponttal indul a próbának és másodpercenként egy pontot levonnak. Ha a 10 másodperc letelik és a gyertya még ég, a versenyző 0 pontot kap. Három forduló, úgynevezett lengetés van. Mindenki egyszer próbálkozhat fordulónként. A legtöbb pontot szerző versenyző nyeri a versenyt. Pontegyezőség esetén az idő dönt, amit a falu jegyzőjének nagyon okos órájával századmásodperc pontossággal mérnek. A nyertes egyszeri korlátlan fogyasztást nyer a helyi kocsmában, amit egy éven belül használhat fel, másra át nem ruházható és csak a személyes fogyasztását jelenti.
+A szervezők az idén komoly informatikai fejlesztésen gondolkodnak, mivel Gizike, a helyi szalmaszál előkészítő üzem titkárnője az idén éppen újszülött gyermekét gondozza, így nem vállalta a pontok vezetését a “kockásfüzetbe” a helyszínen (Szélesbálás faluházának bálterme, Szélesbálás, Arató utca 321, a kocsmával szemben). 
+A megszerzett pontokat a helyszínen (Szélesbálás faluházának bálterme, Szélesbálás, Arató utca 321, a kocsmával szemben) azonnal szeretnék megjeleníteni a Csapos Pityutól (helyi kocsmáros) kölcsönkért nagyméretű Panasonic TV-77Z90BE6 77" OLED 4K UHD Smart TV kijelzőjén. Ehhez az iskola biztosítja a a nem túl combos Dell Latitude E5570 Intel I5 6300U, 12 GB RAM, 256 GB SSD, akkumulátor 91%, FHD laptopot is (Bár a Józsi szerint a JohnDeer traktorja komolyabb gép lenne, de azt Hantás Dezső, a karbantartó nem tudja beindítani, illetve félő, hogy a verseny ideje alatt többet fogyasztana gázolajból, mint a versenyzők egyéb folyadékokból összesen, ami rosszat tenne a költségvetésnek és az őszi vetésnek egyaránt).
+Végül Hájas József, polgármester (aki már kétszer is járt Budapesten), meg a Géza gyerek (a verseny jegyzője, aki a temus rendeléseket intézi a faluban), mint két hozzértő a következő rendszerkövetelményeket írták ki a pályázatban:
+1. A versenyen keletkező és használandó adatokat adatbázisban kell tárolni, mert a temu is abban tárolja, vagyis ez se legyen rosszabb, mint egy kínai.
+2. A verseny jegyzője (a Géza gyerek) a hivatali számítógépen ( Dell Latitude E5570 Intel I5 6300U, 12 GB RAM, 256 GB SSD, akkumulátor 91%, FHD laptop) rögzíti az adatokat az adatbázisba egy asztali alkalmazásban,ami
+3. az adatbázis frissítése után 
+4. előállít egy html táblázatot a verseny aktuális állásáról. A táblázat tartalma:
+   1. versenyző neve (pontegyezőség esetén ABC sorrendben legyenek a nevek pl. induláskor is)
+   2. első lengetés pontszáma
+   3. második lengetés pontszáma
+   4. harmadik lengetés pontszáma
+   5. a legjobb pontszám a három lengetésből
+   6. pillanatnyi helyezés (a táblázat alapvetően helyezés szerint rendezett)
+5. Ezt a táblázatot beágyazva megjeleníti egy honlapon, ami kulturált felületet, a falu jelképeit (traktoros címer búzakalásszal, teli söröskorsó, májas hurka) tartalmazó weboldalt jelent. Ez a külön honlap lehet statikus, akár manuális, de ha lehet, inkább automatikus frissítéssel. Ha az oldalra nem fér ki az összes induló adata egyszerre, akkor a pályázónak valamilyen megoldással gondoskodnia kell a folyamatos görgetésről vagy automatikus váltásról, ami nem részesít előnyben egyetlen versenyzőt sem. 
+6. Határidők:
+   1. adatbázis és a honlap statikus része 2025. december 11. 12:25
+   2. Az adatbázist és a html táblázatot kezelő, adatbevitelre, megjelenítésre, törlésre és módosításra alkalmas konzolos asztali alkalmazás 2025. december 18. 11:30
+7. A program bemutatása egyénileg történik, a bírálásban szerepet vállaló Sike László (a Miskolci SZC  Kandó Kálmán Informatikai Technikum oktatója) külön kérésére GitHub repository (kód, adatbázis) és project felület (tervek, megvalósítási ütemterv), valamint a működő alkalmazás segítségével. A védés része egyetlen, a bíráló által kiválasztott és kitörölt részlet önálló reprodukálása a védés elején.
