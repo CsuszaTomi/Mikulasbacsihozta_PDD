@@ -23,47 +23,52 @@
         </div>
     </nav>
 
-    <main class="container my-4 flex-grow-1">
-        <section class="competition-intro text-center mb-4">
-            <h2>Aktuális Eredmények</h2>
-        </section>
-
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-4">
-                <div class="sidebar d-flex flex-column gap-3">
-                    <div class="symbol-card">
-                        <img src="img/cimer.png" alt="Traktoros Címer" class="img-fluid rounded">
-                        <p>Szélesbálás Címere</p>
-                    </div>
-                    <div class="symbol-card">
-                        <img src="img/hurka.png" alt="Májas Hurka" class="img-fluid rounded">
-                        <p>Helyi ízek</p>
-                    </div>
+    <main class="container-fluid my-4 flex-grow-1">
+        
+        <div class="row h-100">
+            <div class="col-lg-2 col-md-3 d-flex flex-column gap-4 align-items-center justify-content-start sidebar-bg p-3">
+                <div class="symbol-card w-100">
+                    <img src="img/cimer.png" alt="Traktoros címer búzakalásszal" class="img-fluid rounded border border-warning">
+                    <p class="mt-2 fw-bold text-success text-center">Falu Címere</p>
+                </div>
+                <div class="symbol-card w-100">
+                    <img src="img/hurka.png" alt="Májas hurka" class="img-fluid rounded border border-warning">
+                    <p class="mt-2 fw-bold text-success text-center">Helyi Májas</p>
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-8">
-                <section class="results-wrapper h-100">
-                    <div class="table-responsive">
-                        <table class="table table-hover custom-table">
-                            <thead>
-                                <tr>
-                                    <th>Hely.</th>
-                                    <th>Név</th>
-                                    <th>1. kör</th>
-                                    <th>2. kör</th>
-                                    <th>3. kör</th>
-                                    <th>Legjobb</th>
-                                </tr>
-                            </thead>
+            <div class="col-lg-8 col-md-6 d-flex flex-column">
+                <section class="competition-intro text-center mb-3 p-2">
+                    <h2>Aktuális Eredmények</h2>
+                    <p class="mb-0">Adatforrás: Dell Latitude E5570 | Megjelenítő: Panasonic TV-77Z90BE6</p>
+                </section>
+
+                <div class="header-wrapper">
+                    <table class="table mb-0 custom-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Hely.</th>
+                                <th style="width: 30%;">Versenyző Neve</th>
+                                <th style="width: 15%;">1. Kör</th>
+                                <th style="width: 15%;">2. Kör</th>
+                                <th style="width: 15%;">3. Kör</th>
+                                <th style="width: 15%;">Legjobb</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="results-window flex-grow-1 border-start border-end border-bottom rounded-bottom shadow-sm" id="scrollContainer">
+                    <div id="scrollContent">
+                        <table class="table table-striped table-hover mb-0 custom-table">
                             <tbody>
-                                <tr class="highlight-gold">
-                                    <td>1.</td>
-                                    <td>Minta János</td>
-                                    <td>8</td>
-                                    <td>9</td>
-                                    <td>7</td>
-                                    <td>9</td>
+                                <tr class="table-warning fw-bold">
+                                    <td style="width: 10%;">1.</td>
+                                    <td style="width: 30%;">Minta János</td>
+                                    <td style="width: 15%;">8</td>
+                                    <td style="width: 15%;">9</td>
+                                    <td style="width: 15%;">7</td>
+                                    <td style="width: 15%;">9</td>
                                 </tr>
                                 <tr>
                                     <td>2.</td>
@@ -97,7 +102,7 @@
                                     <td>2</td>
                                     <td>2</td>
                                 </tr>
-                                 <tr>
+                                <tr>
                                     <td>6.</td>
                                     <td>Nagy Árpád</td>
                                     <td>1</td>
@@ -105,18 +110,48 @@
                                     <td>0</td>
                                     <td>1</td>
                                 </tr>
+                                <tr>
+                                    <td>7.</td>
+                                    <td>Horváth Elemér</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>8.</td>
+                                    <td>Varga Jenő</td>
+                                    <td>5</td>
+                                    <td>4</td>
+                                    <td>2</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>9.</td>
+                                    <td>Szabó Károly</td>
+                                    <td>8</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>10.</td>
+                                    <td>Tóth Ferenc</td>
+                                    <td>3</td>
+                                    <td>3</td>
+                                    <td>3</td>
+                                    <td>3</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                </section>
+                </div>
             </div>
 
-            <div class="col-lg-3 col-md-12">
-                <div class="sidebar">
-                    <div class="symbol-card">
-                        <img src="img/sor.png" alt="Teli Söröskorsó" class="img-fluid rounded">
-                        <p>Fődíj</p>
-                    </div>
+            <div class="col-lg-2 col-md-3 d-flex flex-column align-items-center justify-content-start sidebar-bg p-3">
+                <div class="symbol-card w-100">
+                    <img src="img/sor.png" alt="Teli söröskorsó" class="img-fluid rounded border border-warning">
+                    <p class="mt-2 fw-bold text-success text-center">A Fődíj</p>
                 </div>
             </div>
         </div>
@@ -124,7 +159,34 @@
 
     <footer>
         <p>Szélesbálás Község Önkormányzata | 1234 Szélesbálás, Arató utca 321.</p>
+        <p class="small text-muted">Hivatalos időmérés: Jegyzői Okosóra (századmásodperc pontosság).</p>
     </footer>
+
+    <script>
+        window.onload = function() {
+            const container = document.getElementById('scrollContainer');
+            const content = document.getElementById('scrollContent');
+            
+            if (content.offsetHeight > container.offsetHeight) {
+                const clone = content.cloneNode(true);
+                container.appendChild(clone);
+                
+                let scrollPos = 0;
+                const speed = 0.5;
+
+                function autoScroll() {
+                    scrollPos += speed;
+                    if (scrollPos >= content.offsetHeight) {
+                        scrollPos = 0;
+                    }
+                    container.scrollTop = scrollPos;
+                    requestAnimationFrame(autoScroll);
+                }
+                
+                autoScroll();
+            }
+        };
+    </script>
 
 </body>
 </html>
