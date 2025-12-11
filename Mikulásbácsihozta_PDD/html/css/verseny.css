@@ -1,0 +1,121 @@
+/* Globális beállítások */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header stílus */
+header {
+    background-color: #2c5e2e;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    border-bottom: 5px solid #d4a017;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+/* Navigáció */
+nav {
+    background-color: #1a3c1b;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+nav a:hover, nav a.active {
+    background-color: #d4a017;
+    color: #1a3c1b;
+}
+
+/* Tartalom dobozok */
+.competition-intro {
+    background-color: white;
+    padding: 1.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-left: 5px solid #d4a017;
+    border-radius: 4px;
+}
+
+.competition-intro h2 {
+    color: #2c5e2e;
+}
+
+/* Kártyák (Oldalsávok) */
+.symbol-card {
+    background-color: white;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border-bottom: 3px solid #2c5e2e;
+    border-radius: 4px;
+    height: 100%;
+}
+
+.symbol-card p {
+    font-weight: bold;
+    color: #2c5e2e;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* Táblázat konténer és stílus */
+.results-wrapper {
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.custom-table thead {
+    background-color: #2c5e2e;
+    color: white;
+}
+
+.custom-table th {
+    border-bottom: 3px solid #d4a017;
+    vertical-align: middle;
+}
+
+/* Az első helyezett kiemelése */
+.highlight-gold {
+    background-color: #e8f5e9 !important; /* !important kell a bootstrap felülírásához */
+    font-weight: bold;
+    border-left: 4px solid #d4a017;
+}
+
+.highlight-gold td {
+    background-color: #e8f5e9 !important;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: auto; 
+    font-size: 0.9rem;
+    border-top: 5px solid #2c5e2e;
+}
