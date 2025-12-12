@@ -62,8 +62,9 @@ namespace Mikulásbácsihozta_PDD.Models
             do
             {
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Red;
                 TextDecoration.WriteLineCentered(title);
+                Console.ForegroundColor = ConsoleColor.White;
                 TextDecoration.WriteLineCentered("--------------------");
                 for (int i = 0; i < menupoints.Length; i++)
                 {
@@ -85,10 +86,19 @@ namespace Mikulásbácsihozta_PDD.Models
                     case ConsoleKey.Enter:
                         selected = true;
                         break;
+                    case ConsoleKey.E:
+                        selected = true;
+                        break;
                     case ConsoleKey.UpArrow:
                         if (currentPoint > 0) currentPoint--;
                         break;
+                    case ConsoleKey.W:
+                        if (currentPoint > 0) currentPoint--;
+                        break;
                     case ConsoleKey.DownArrow:
+                        if (currentPoint < menupoints.Length - 1) currentPoint++;
+                        break;
+                    case ConsoleKey.S:
                         if (currentPoint < menupoints.Length - 1) currentPoint++;
                         break;
                     default:

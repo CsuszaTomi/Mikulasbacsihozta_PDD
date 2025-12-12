@@ -17,6 +17,7 @@ namespace Mikulásbácsihozta_PDD
             string connectionString = "SERVER = localhost,DATABASE=kalaplengetőverseny_pdd;UID=root;PASSWORD=;";
             connection.ConnectionString = connectionString;
             List<User> users = new List<User>();
+            users = UserController.GetUsers();
             while (true)
             {
                 Console.Clear();
@@ -27,7 +28,7 @@ namespace Mikulásbácsihozta_PDD
 
         private static void MainMenu(MySqlConnection connection, List<User> users)
         {
-            int menu = TextDecoration.ArrowMenu(new string[] { "Versenyzők listázása", "Új versenyző rögzítése", "Versenyzők kezelése", "Kilépés" }, "Főmenü");
+            int menu = TextDecoration.ArrowMenu(new string[] { "Versenyzők listázása", "Új versenyző rögzítése", "Versenyzők kezelése", "Kilépés" }, "=== FŐMENÜ ===");
             switch (menu)
             {
                 case 0:
@@ -104,7 +105,7 @@ namespace Mikulásbácsihozta_PDD
                 case 3:
                     Environment.Exit(0);
                     break;
-            }
+            }   
         }
     }
 }

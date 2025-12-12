@@ -13,10 +13,11 @@ namespace Mikulásbácsihozta_PDD.Models
 
         }
 
-        public User(int id, string nev, int pont1, double ido1, int pont2, double ido2, int pont3, double ido3, int legjobbpont, double legjobbido)
+        public User(int id, string nev,int pillhely, int pont1, double ido1, int pont2, double ido2, int pont3, double ido3, int legjobbpont, double legjobbido)
         {
             Id = id;
             Nev = nev;
+            this.pillhely = pillhely;
             this.pont1 = pont1;
             this.ido1 = ido1;
             this.pont2 = pont2;
@@ -29,6 +30,8 @@ namespace Mikulásbácsihozta_PDD.Models
 
         public int Id { get; private set; }
         public string Nev { get; set; }
+
+        public int pillhely { get; set; }
         public int pont1 { get; set; }
         public double ido1 { get; set; }
         public int pont2 { get; set; }

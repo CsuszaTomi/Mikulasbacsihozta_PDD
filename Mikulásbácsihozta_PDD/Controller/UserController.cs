@@ -25,6 +25,7 @@ namespace Mikulásbácsihozta_PDD.Controller
             {
                 User user = new User(id: reader.GetInt32("ID"),
                     nev: reader.GetString("Nev"),
+                    pillhely: reader.GetInt32("PillHely"),
                     pont1: reader.GetInt32("Pont1"),
                     ido1: reader.GetDouble("Ido1"),
                     pont2: reader.GetInt32("Pont2"),
