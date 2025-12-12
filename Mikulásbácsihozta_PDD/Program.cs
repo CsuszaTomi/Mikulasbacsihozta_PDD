@@ -46,15 +46,15 @@ namespace Mikulásbácsihozta_PDD
                     string nev = Console.ReadLine();
                     TextDecoration.WriteCentered("Add meg versenyző első körben elért pontszámát: ");
                     int pont1 = int.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző első körben elért idejét: ");
+                    TextDecoration.WriteCentered("Add meg versenyző első körben eltelt idejét: ");
                     double ido1 = double.Parse(Console.ReadLine());
                     TextDecoration.WriteCentered("Add meg versenyző második körben elért pontszámát: ");
                     int pont2 = int.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző második körben elért idejét: ");
+                    TextDecoration.WriteCentered("Add meg versenyző második körben eltelt idejét: ");
                     double ido2 = double.Parse(Console.ReadLine());
                     TextDecoration.WriteCentered("Add meg versenyző harmadik körben elért pontszámát: ");
                     int pont3 = int.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző harmadik körben elért idejét: ");
+                    TextDecoration.WriteCentered("Add meg versenyző harmadik körben eltelt idejét: ");
                     double ido3 = double.Parse(Console.ReadLine());
                     int legjobbpont = Math.Max(pont1, Math.Max(pont2, pont3));
                     double legjobbido = Math.Min(ido1, Math.Min(ido2, ido3));
@@ -70,9 +70,18 @@ namespace Mikulásbácsihozta_PDD
                             pillanatnyihelyezes++;
                         }
                     }
+                    int id = 0;
+                    foreach (User user in users)
+                    {
+                        if (user.Id >= id)
+                        {
+                            id = user.Id+1;
+                        }
+                    }
                     connection.Open();
-                    string insertsql = $"INSERT INTO kalaplengetőverseny_pdd.versenyzok (`ID`, `Nev`, `pillanatnyihelyezes`, `pont1`, `ido1`, `pont2`, `ido2`,`pont3`, `ido3`,`legjobbpont`, `legjobbido`) VALUES (null,@nev,@pillanatnyihelyezes,@pont1,@ido1,@pont2,@ido2,@pont3,@ido3,@legjobbpont,@legjobbido)";
+                    string insertsql = $"INSERT INTO kalaplengetőverseny_pdd.versenyzok (`ID`, `Nev`, `pillanatnyihelyezes`, `pont1`, `ido1`, `pont2`, `ido2`,`pont3`, `ido3`,`legjobbpont`, `legjobbido`) VALUES (@id,@nev,@pillanatnyihelyezes,@pont1,@ido1,@pont2,@ido2,@pont3,@ido3,@legjobbpont,@legjobbido)";
                     MySqlCommand insertCmd = new MySqlCommand(insertsql, connection);
+                    insertCmd.Parameters.AddWithValue("@id", id);
                     insertCmd.Parameters.AddWithValue("@nev", nev);
                     insertCmd.Parameters.AddWithValue("@pillanatnyihelyezes", pillanatnyihelyezes);
                     insertCmd.Parameters.AddWithValue("@pont1", pont1);
