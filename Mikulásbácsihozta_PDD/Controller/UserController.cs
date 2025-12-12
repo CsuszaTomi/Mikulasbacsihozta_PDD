@@ -17,7 +17,7 @@ namespace Mikulásbácsihozta_PDD.Controller
             string connectionString = "SERVER = localhost,DATABASE=kalaplengetőverseny_pdd;UID=root;PASSWORD=;";
             connection.ConnectionString = connectionString;
             connection.Open();
-            string sql = "SELECT * FROM kalaplengetőverseny_pdd.user";
+            string sql = "SELECT * FROM kalaplengetőverseny_pdd.versenyzok";
             MySqlCommand cmd = new MySqlCommand(sql, connection);
             List<User> users = new List<User>();
             MySqlDataReader reader = cmd.ExecuteReader();
