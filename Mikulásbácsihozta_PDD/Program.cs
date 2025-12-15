@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mikulásbácsihozta_PDD
@@ -42,7 +43,8 @@ namespace Mikulásbácsihozta_PDD
                     break;
                 case 1:
                     #region Felhasználó felvétele
-                    TextDecoration.WriteLineCentered("=== ÚJ FELHASZNÁLÓ RÖGZÍTÉSE ===");
+                    Console.Clear();
+                    TextDecoration.WriteLineCentered("=== ÚJ FELHASZNÁLÓ RÖGZÍTÉSE ===", "red");
                     TextDecoration.WriteCentered("Add meg a versenyző nevét: ");
                     string nev = Console.ReadLine();
                     TextDecoration.WriteCentered("Add meg versenyző első körben elért pontszámát: ");
@@ -94,13 +96,148 @@ namespace Mikulásbácsihozta_PDD
                     insertCmd.Parameters.AddWithValue("@legjobbpont", legjobbpont);
                     insertCmd.Parameters.AddWithValue("@legjobbido", legjobbido);
                     int sorokszama = insertCmd.ExecuteNonQuery();
-                    string valasz = sorokszama > 0 ? "sikeres" : "sikertelen";
-                    Console.WriteLine(valasz);
+                    string valasz = sorokszama > 0 ? "Sikeres hozzáadás" : "Sikertelen hozzáadás!";
+                    TextDecoration.WriteLineCentered(valasz,"green");
                     connection.Close();
+                    Thread.Sleep(2000);
                     #endregion
                     break;
                 case 2:
-                    // Versenyzők kezelése
+                    int menu2 = TextDecoration.ArrowMenu(new string[] { "Versenyző módosítása","Versenyző törlése","Helyezések kiszámítása","Vissza" }, "=== VERSENYZŐ KEZELÉS ===");
+                    switch (menu2)
+                    {
+                        case 0:
+                            Console.Clear();
+                            TextDecoration.WriteLineCentered("=== VERSENYZŐ MÓDOSÍTÁSA ===");
+                            TextDecoration.WriteCentered("Add meg a módosítandó versenyző nevét: ");
+                            string modositandonev = Console.ReadLine();
+                            int ellenorzes = 0;
+                            User versenyzo = null;
+                            foreach (User user in users)
+                            {
+                                if (user.Nev == modositandonev)
+                                {
+                                    versenyzo = user;
+                                    continue;
+                                }
+                                else
+                                {
+                                    ellenorzes++;
+                                    if (ellenorzes == users.Count)
+                                    {
+                                        TextDecoration.WriteLineCentered("Nincs ilyen nevű versenyző!", "red");
+                                        TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                                        Console.ReadKey();
+                                        return;
+                                    }
+                                }
+                            }
+                            TextDecoration.WriteLineCentered("Ha nem egy bizonyos adatot módosítani akkor arra nyomjon szóközt/entert.");
+                            TextDecoration.WriteCentered($"Jelenlegi név: {modositandonev} Új név: ");
+                            string ujnev = Console.ReadLine();
+                            if (ujnev != "")
+                            {
+                                modositandonev = ujnev;
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi pillanatnyi helyezés: {versenyzo.pillhely} Új helyezés: ");
+                            string ujhelyezes = Console.ReadLine();
+                            if (ujhelyezes != "")
+                            {
+                                versenyzo.pillhely = int.Parse(ujhelyezes);
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi első kör pontszám: {versenyzo.pont1} Új pontszám: ");
+                            string ujpont1 = Console.ReadLine();
+                            if (ujpont1 != "")
+                            {
+                                versenyzo.pont1 = int.Parse(ujpont1);
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi első kör idő: {versenyzo.ido1} Új idő: ");
+                            string ujido1 = Console.ReadLine();
+                            if (ujido1 != "")
+                            {
+                                versenyzo.ido1 = double.Parse(ujido1);
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi második kör pontszám: {versenyzo.pont2} Új pontszám: ");
+                            string ujpont2 = Console.ReadLine();
+                            if (ujpont2 != "")
+                            {
+                                versenyzo.pont2 = int.Parse(ujpont2);
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi második kör idő: {versenyzo.ido2} Új idő: ");
+                            string ujido2 = Console.ReadLine();
+                            if (ujido2 != "")
+                            {
+                                versenyzo.ido2 = double.Parse(ujido2);
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi harmadik kör pontszám: {versenyzo.pont3} Új pontszám: ");
+                            string ujpont3 = Console.ReadLine();
+                            if (ujpont3 != "")
+                            {
+                                versenyzo.pont3 = int.Parse(ujpont3);
+                            }
+                            TextDecoration.WriteCentered($"Jelenlegi harmadik kör idő: {versenyzo.ido3} Új idő: ");
+                            string ujido3 = Console.ReadLine();
+                            if (ujido3 != "")
+                            {
+                                versenyzo.ido3 = double.Parse(ujido3);
+                            }
+                            int ujlegjobbpont = Math.Max(versenyzo.pont1, Math.Max(versenyzo.pont2, versenyzo.pont3));
+                            double ujlegjobbido = Math.Min(versenyzo.ido1, Math.Min(versenyzo.ido2, versenyzo.ido3));
+                            connection.Open();
+                            string updatesql = $"UPDATE kalaplengetőverseny_pdd.versenyzok SET `ID`=@id,`Nev`=@nev,`pillanatnyihelyezes`=@pillanatnyihelyezes,`pont1`=@pont1,`ido1`=@ido1,`pont2`=@pont2,`ido2`=@ido2,`pont3`=@pont3,`ido3`=@ido3,`legjobbpont`=@legjobbpont,`legjobbido`=@legjobbido WHERE Nev = \"{versenyzo.Nev}\"";
+                            MySqlCommand updatecmd = new MySqlCommand(updatesql, connection);
+                            updatecmd.Parameters.AddWithValue("@id", versenyzo.Id);
+                            updatecmd.Parameters.AddWithValue("@nev", modositandonev);
+                            updatecmd.Parameters.AddWithValue("@pillanatnyihelyezes", versenyzo.pillhely);
+                            updatecmd.Parameters.AddWithValue("@pont1", versenyzo.pont1);
+                            updatecmd.Parameters.AddWithValue("@ido1", versenyzo.ido1);
+                            updatecmd.Parameters.AddWithValue("@pont2", versenyzo.pont2);
+                            updatecmd.Parameters.AddWithValue("@ido2", versenyzo.ido2);
+                            updatecmd.Parameters.AddWithValue("@pont3", versenyzo.pont3);
+                            updatecmd.Parameters.AddWithValue("@ido3", versenyzo.ido3);
+                            updatecmd.Parameters.AddWithValue("@legjobbpont", ujlegjobbpont);
+                            updatecmd.Parameters.AddWithValue("@legjobbido", ujlegjobbido);
+                            updatecmd.ExecuteNonQuery();
+                            connection.Close();
+                            TextDecoration.WriteLineCentered("Sikeres módosítás!", "green");
+                            Thread.Sleep(2000);
+                            break;
+                        case 1:
+                            Console.Clear();
+                            TextDecoration.WriteLineCentered("=== VERSENYZŐ TÖRLÉSE ===","red");
+                            TextDecoration.WriteCentered("Add meg a törlendő versenyző nevét: ");
+                            string torlendonev = Console.ReadLine();
+                            int torloellen = 0;
+                            foreach (User user in users)
+                            {
+                                if (user.Nev == torlendonev)
+                                {
+                                    versenyzo = user;
+                                    continue;
+                                }
+                                else
+                                {
+                                    torloellen++;
+                                    if (torloellen == users.Count)
+                                    {
+                                        TextDecoration.WriteLineCentered("Nincs ilyen nevű versenyző!","red");
+                                        TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                                        Console.ReadKey();
+                                        return;
+                                    }
+                                }
+                            }
+                            connection.Open();
+                            string deletesql = $"DELETE FROM kalaplengetőverseny_pdd.versenyzok WHERE Nev = \"{torlendonev}\"";
+                            MySqlCommand deletecmd = new MySqlCommand(deletesql, connection);
+                            deletecmd.ExecuteNonQuery();
+                            connection.Close();
+                            TextDecoration.WriteLineCentered("Sikeres törlés!","green");
+                            Thread.Sleep(2000);
+                            break;
+                        case 2:
+                            break;
+                    }
                     break;
                 case 3:
                     Environment.Exit(0);

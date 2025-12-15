@@ -16,7 +16,7 @@ namespace Mikulásbácsihozta_PDD.Models
         /// A függvény a Console.WriteLine középre íratását valósítja meg
         /// </summary>
         /// <param name="text">A megadott szöveget írja ki középre</param>
-        public static void WriteLineCentered(string text)
+        public static void WriteLineCentered(string text,string szin = "")
         // Console.WriteLine középre íratása
         {
             int width = Console.WindowWidth;
@@ -25,9 +25,19 @@ namespace Mikulásbácsihozta_PDD.Models
             {
                 leftPadding = 0;
             }
+            if (szin != "")
+            {
+                if (szin == "green")
+                    Console.ForegroundColor = ConsoleColor.Green;
+                else if (szin == "red")
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+            }
+            else
+                Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(new string(' ', leftPadding) + text);
         }
-        public static void WriteCentered(string text)
+        public static void WriteCentered(string text, string szin = "")
         // Console.Write középre íratása
         {
             int width = Console.WindowWidth;
@@ -36,6 +46,16 @@ namespace Mikulásbácsihozta_PDD.Models
             {
                 leftPadding = 0;
             }
+            if (szin != "")
+            {
+                if (szin == "green")
+                    Console.ForegroundColor = ConsoleColor.Green;
+                else if (szin == "red")
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+            }
+            else
+                Console.ForegroundColor = ConsoleColor.White;
             Console.Write(new string(' ', leftPadding) + text);
         }
 
@@ -62,24 +82,19 @@ namespace Mikulásbácsihozta_PDD.Models
             do
             {
                 Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Red;
-                TextDecoration.WriteLineCentered(title);
-                Console.ForegroundColor = ConsoleColor.White;
+                TextDecoration.WriteLineCentered(title,"red");
                 TextDecoration.WriteLineCentered("--------------------");
                 for (int i = 0; i < menupoints.Length; i++)
                 {
                     if (i == currentPoint)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        TextDecoration.WriteLineCentered($"> {menupoints[i]}");
+                        TextDecoration.WriteLineCentered($"> {menupoints[i]}","green");
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.White;
                         TextDecoration.WriteLineCentered($"  {menupoints[i]}");
                     }
                 }
-                Console.ForegroundColor = ConsoleColor.White;
                 TextDecoration.WriteLineCentered("--------------------");
                 switch (Console.ReadKey(true).Key)
                 {
