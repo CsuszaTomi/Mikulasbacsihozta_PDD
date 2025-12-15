@@ -236,6 +236,27 @@ namespace Mikulásbácsihozta_PDD
                             Thread.Sleep(2000);
                             break;
                         case 2:
+                            Console.Clear();
+                            TextDecoration.WriteLineCentered("=== HELYEZÉSEK KISZÁMÍTÁSA ===","red");
+                            users = UserController.GetUsers();
+                            users = users.OrderByDescending(u => u.Legjobbpont).ThenBy(u => u.Legjobbido).ToList();
+                            for (int i = 0; i < users.Count; i++)
+                            {
+                                users[i].pillhely = i + 1;
+
+                            }
+                            connection.Open();
+                            foreach (var user in users)
+                            {
+                                string helyezesupdatesql = $"UPDATE kalaplengetőverseny_pdd.versenyzok SET `pillanatnyihelyezes`=@pillanatnyihelyezes WHERE ID = @id";
+                                MySqlCommand updateplacecmd = new MySqlCommand(helyezesupdatesql, connection);
+                                updateplacecmd.Parameters.AddWithValue("@pillanatnyihelyezes", user.pillhely);
+                                updateplacecmd.Parameters.AddWithValue("@id", user.Id);
+                                updateplacecmd.ExecuteNonQuery();
+                            }
+                            connection.Close();
+                            TextDecoration.WriteLineCentered("Helyezések sikeresen frissítve!", "green");
+                            Thread.Sleep(2000);
                             break;
                     }
                     break;

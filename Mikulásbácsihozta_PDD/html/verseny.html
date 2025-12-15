@@ -23,7 +23,7 @@
         </div>
     </nav>
 
-    <div id="fokezelo" class="kontenerfolyadek my-4 flex-grow-1">
+<div id="fokezelo" class="container-fluid my-4 flex-grow-1 px-3">
         
         <div class="row h-100">
             <div class="col-lg-2 col-md-3 d-flex flex-column gap-4 align-items-center justify-content-start oldalsavhatter p-3">
@@ -61,7 +61,7 @@
 
                 <div class="eredmenyablak flex-grow-1 border-start border-end border-bottom rounded-bottom arnyek" id="gorgetokontener">
                     <div id="gorgetotartalom">
-                        <table class="table table-striped table-hover mb-0 egyeditabla">
+                        <table class="table table-striped table-hover mb-0 egyeditabla ">
                             <tbody>
                                 <tr class="table-figyelmezteto fofej">
                                     <td style="width: 10%;">1.</td>
@@ -164,29 +164,23 @@
     </footer>
 
     <script>
-        window.onload = function() {
-            const container = document.getElementById('gorgetokontener');
-            const content = document.getElementById('gorgetotartalom');
-            
-            if (content.offsetHeight > container.offsetHeight) {
-                const clone = content.cloneNode(true);
-                container.appendChild(clone);
-                
-                let scrollPos = 0;
-                const speed = 0.5;
-
-                function autoScroll() {
-                    scrollPos += speed;
-                    if (scrollPos >= content.offsetHeight) {
-                        scrollPos = 0;
-                    }
-                    container.scrollTop = scrollPos;
-                    requestAnimationFrame(autoScroll);
-                }
-                
-                autoScroll();
+        const tabla = document.getElementById('gorgetokontener');
+        const tartalom = document.getElementById('gorgetotartalom');
+        let poz = 0;
+        const sebesseg = 0.5;
+        const Loop = () => {
+            poz += sebesseg;
+            if (poz >= tartalom.offsetHeight) poz = 0;
+            {
+                tabla.scrollTop = poz;
+                requestAnimationFrame(Loop);
             }
         };
+        if (tartalom.offsetHeight > tabla.offsetHeight) {
+            tabla.appendChild(tartalom.cloneNode(true));
+            
+            Loop();
+        }
     </script>
 
 </body>
