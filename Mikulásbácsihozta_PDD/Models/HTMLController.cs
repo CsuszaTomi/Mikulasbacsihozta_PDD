@@ -10,33 +10,21 @@ namespace Mikulásbácsihozta_PDD.Models
     internal class HTMLController
     {
         public static void HTMLGeneralo(List<User> users)
-        {
-            users = users
-                .OrderByDescending(u => u.Legjobbpont)
-                .ThenBy(u => u.Legjobbido)             
-                .ToList();
-            for (int i = 0; i < users.Count; i++)
-            {
-                users[i].pillhely = i + 1;
-            }
-            string tablazatsor = "";
+        {     
+            string tablazat = "";
             foreach (var user in users)
             {
-                string rowClass = (user.pillhely == 1) ? "table-figyelmezteto fofej" : "";
-                string ido1Formazott = user.ido1.ToString("F2").Replace(',', '.');
-                string ido2Formazott = user.ido2.ToString("F2").Replace(',', '.');
-                string ido3Formazott = user.ido3.ToString("F2").Replace(',', '.');
-                string legjobbIdoFormazott = user.Legjobbido.ToString("F2").Replace(',', '.');
-                string row =
-                    "\n<tr class=\"" + rowClass + "\">" +
+                string fejkiemelo = (user.pillhely == 1) ? "table-figyelmezteto fofej" : "";
+                string tablazatsor =
+                    "\n<tr class=\"" + fejkiemelo + "\">" +
                     "\n<td style=\"width: 10%;\">" + user.pillhely + ".</td>" +
                     "\n<td style=\"width: 30%;\">" + user.Nev + "</td>" +
-                    "\n<td style=\"width: 15%;\">" + user.pont1 + " (" + ido1Formazott + "s)</td>" +
-                    "\n<td style=\"width: 15%;\">" + user.pont2 + " (" + ido2Formazott + "s)</td>" +
-                    "\n<td style=\"width: 15%;\">" + user.pont3 + " (" + ido3Formazott + "s)</td>" +
-                    "\n<td style=\"width: 15%;\">" + user.Legjobbpont + " (" + legjobbIdoFormazott + "s)</td>" +
+                    "\n<td style=\"width: 15%;\">" + user.pont1 + " (" + user.ido1 + "s)</td>" +
+                    "\n<td style=\"width: 15%;\">" + user.pont2 + " (" + user.ido2 + "s)</td>" +
+                    "\n<td style=\"width: 15%;\">" + user.pont3 + " (" + user.ido3 + "s)</td>" +
+                    "\n<td style=\"width: 15%;\">" + user.Legjobbpont + " (" + user.Legjobbido + "s)</td>" +
                     "\n</tr>";
-                tablazatsor += row;
+                tablazat += tablazatsor;
             }
             string htmlTemplate = $@"
         <!DOCTYPE html>
@@ -104,7 +92,7 @@ namespace Mikulásbácsihozta_PDD.Models
                             <div id=""gorgetotartalom"">
                                 <table class=""table table-striped table-hover mb-0 egyeditabla"">
                                     <tbody>
-                                        {tablazatsor}
+                                        {tablazat}
                                     </tbody>
                                 </table>
                             </div>

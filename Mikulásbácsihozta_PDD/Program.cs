@@ -254,7 +254,7 @@ namespace Mikulásbácsihozta_PDD
                 case 3:
                     Console.Clear();
                     TextDecoration.WriteLineCentered("=== HTML GENERÁLÁSA ===","red");
-                    HelyezesSzamito(connection);
+                    users = HelyezesSzamito(connection);
                     HTMLController.HTMLGeneralo(users);
                     TextDecoration.WriteLineCentered("HTML fájl sikeresen generálva!","green");
                     TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
