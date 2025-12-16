@@ -29,17 +29,23 @@ namespace Mikulásbácsihozta_PDD
 
         private static void MainMenu(MySqlConnection connection, List<User> users)
         {
-            int menu = TextDecoration.ArrowMenu(new string[] { "Versenyzők listázása", "Új versenyző rögzítése", "Versenyzők kezelése", "Kilépés" }, "=== FŐMENÜ ===");
+            int menu = TextDecoration.ArrowMenu(new string[] { "Versenyzők listázása", "Új versenyző rögzítése", "Versenyzők kezelése","HTML Generálása", "Kilépés" }, "=== FŐMENÜ ===");
             switch (menu)
             {
                 case 0:
-                    users = UserController.GetUsers();
+                    Console.Clear();
+                    users = HelyezesSzamito(connection);
+                    TextDecoration.WriteLineCentered("=== VERSENYZŐK LISTÁJA ===", "red");
+                    TextDecoration.WriteLineCentered(TextDecoration.CenterText("Helyezés | Név                | Legjobb pontszám | Legjobb idő", 70));
+                    TextDecoration.WriteLineCentered(new string('-', 70));
                     foreach (var user in users)
                     {
-                        TextDecoration.WriteLineCentered($"ID: {user.Id} Név: {user.Nev} Pont1: {user.pont1} Idő1: {user.ido1} Pont2: {user.pont2} Idő2: {user.ido2} Pont3: {user.pont3} Idő3: {user.ido3} LegjobbPont: {user.Legjobbpont} LegjobbIdő: {user.Legjobbido}");
+                        TextDecoration.WriteLineCentered(TextDecoration.CenterText($"{user.pillhely,8} | {user.Nev,-18} | {user.Legjobbpont,16} | {user.Legjobbido,11}", 70));
                     }
+                    TextDecoration.WriteLineCentered(new string('-', 70));
                     TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
                     Console.ReadKey();
+
                     break;
                 case 1:
                     #region Felhasználó felvétele
@@ -237,23 +243,8 @@ namespace Mikulásbácsihozta_PDD
                             break;
                         case 2:
                             Console.Clear();
-                            TextDecoration.WriteLineCentered("=== HELYEZÉSEK KISZÁMÍTÁSA ===","red");
-                            users = UserController.GetUsers();
-                            users = users.OrderByDescending(u => u.Legjobbpont).ThenBy(u => u.Legjobbido).ToList();
-                            for (int i = 0; i < users.Count; i++)
-                            {
-                                users[i].pillhely = i + 1;
-
-                            }
-                            connection.Open();
-                            foreach (var user in users)
-                            {
-                                string helyezesupdatesql = $"UPDATE kalaplengetőverseny_pdd.versenyzok SET `pillanatnyihelyezes`=@pillanatnyihelyezes WHERE ID = @id";
-                                MySqlCommand updateplacecmd = new MySqlCommand(helyezesupdatesql, connection);
-                                updateplacecmd.Parameters.AddWithValue("@pillanatnyihelyezes", user.pillhely);
-                                updateplacecmd.Parameters.AddWithValue("@id", user.Id);
-                                updateplacecmd.ExecuteNonQuery();
-                            }
+                            TextDecoration.WriteLineCentered("=== HELYEZÉSEK KISZÁMÍTÁSA ===", "red");
+                            users = HelyezesSzamito(connection);
                             connection.Close();
                             TextDecoration.WriteLineCentered("Helyezések sikeresen frissítve!", "green");
                             Thread.Sleep(2000);
@@ -261,9 +252,40 @@ namespace Mikulásbácsihozta_PDD
                     }
                     break;
                 case 3:
+                    Console.Clear();
+                    TextDecoration.WriteLineCentered("=== HTML GENERÁLÁSA ===","red");
+                    HelyezesSzamito(connection);
+                    HTMLController.HTMLGeneralo(users);
+                    TextDecoration.WriteLineCentered("HTML fájl sikeresen generálva!","green");
+                    TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                    Console.ReadKey();
+                    break;
+                case 4:
                     Environment.Exit(0);
                     break;
             }   
+        }
+
+        private static List<User> HelyezesSzamito(MySqlConnection connection)
+        {
+            List<User> users = UserController.GetUsers();
+            users = users.OrderByDescending(u => u.Legjobbpont).ThenBy(u => u.Legjobbido).ToList();
+            for (int i = 0; i < users.Count; i++)
+            {
+                users[i].pillhely = i + 1;
+
+            }
+            connection.Open();
+            foreach (var user in users)
+            {
+                string helyezesupdatesql = $"UPDATE kalaplengetőverseny_pdd.versenyzok SET `pillanatnyihelyezes`=@pillanatnyihelyezes WHERE ID = @id";
+                MySqlCommand updateplacecmd = new MySqlCommand(helyezesupdatesql, connection);
+                updateplacecmd.Parameters.AddWithValue("@pillanatnyihelyezes", user.pillhely);
+                updateplacecmd.Parameters.AddWithValue("@id", user.Id);
+                updateplacecmd.ExecuteNonQuery();
+            }
+            connection.Close();
+            return users;
         }
     }
 }
