@@ -30,7 +30,8 @@ namespace Mikulásbácsihozta_PDD.Models
                     Console.ForegroundColor = ConsoleColor.Green;
                 else if (szin == "red")
                     Console.ForegroundColor = ConsoleColor.Red;
-
+                else if (szin == "yellow")
+                    Console.ForegroundColor = ConsoleColor.Yellow;
             }
             else
                 Console.ForegroundColor = ConsoleColor.White;
@@ -50,7 +51,8 @@ namespace Mikulásbácsihozta_PDD.Models
                     Console.ForegroundColor = ConsoleColor.Green;
                 else if (szin == "red")
                     Console.ForegroundColor = ConsoleColor.Red;
-
+                else if (szin == "yellow")
+                    Console.ForegroundColor = ConsoleColor.Yellow;
             }
             else
                 Console.ForegroundColor = ConsoleColor.White;

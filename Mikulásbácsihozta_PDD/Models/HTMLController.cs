@@ -111,7 +111,7 @@ namespace Mikulásbácsihozta_PDD.Models
                 const tabla = document.getElementById('gorgetokontener');
                 const tartalom = document.getElementById('gorgetotartalom');
                 let poz = 0;
-                const sebesseg = 0.5;
+                const sebesseg = 0.2;
         
                 const Loop = () => {{
                     if (tartalom) {{
