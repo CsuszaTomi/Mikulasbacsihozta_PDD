@@ -194,7 +194,8 @@ namespace Mikulásbácsihozta_PDD
                             {
                                 modositandonev = ujnev;
                             }
-                            Iras.WriteCentered($"Jelenlegi első kör pontszám: {versenyzo.pont1} Új pontszám: ");
+                            Iras.WriteLineCentered($"Jelenlegi első kör pontszám: {versenyzo.pont1}");
+                            Iras.WriteCentered("Új pontszám: ");
                             string ujpont1 = Console.ReadLine();
                             if (ujpont1 == "")
                             {
@@ -214,7 +215,8 @@ namespace Mikulásbácsihozta_PDD
                             {
                                 versenyzo.pont1 = int.Parse(ujpont1);
                             }
-                            Iras.WriteCentered($"Jelenlegi első kör idő: {versenyzo.ido1} Új idő: ");
+                            Iras.WriteLineCentered($"Jelenlegi első kör idő: {versenyzo.ido1}");
+                            Iras.WriteCentered("Új idő: ");
                             string ujido1 = Console.ReadLine();
                             if (ujido1 == "")
                             {
@@ -234,7 +236,8 @@ namespace Mikulásbácsihozta_PDD
                             {
                                 versenyzo.ido1 = double.Parse(ujido1);
                             }
-                            Iras.WriteCentered($"Jelenlegi második kör pontszám: {versenyzo.pont2} Új pontszám: ");
+                            Iras.WriteLineCentered($"Jelenlegi második kör pontszám: {versenyzo.pont2}");
+                            Iras.WriteCentered("Új pontszám: ");
                             string ujpont2 = Console.ReadLine();
                             if (ujpont2 == "")
                             {
@@ -254,7 +257,8 @@ namespace Mikulásbácsihozta_PDD
                             {
                                 versenyzo.pont2 = int.Parse(ujpont2);
                             }
-                            Iras.WriteCentered($"Jelenlegi második kör idő: {versenyzo.ido2} Új idő: ");
+                            Iras.WriteLineCentered($"Jelenlegi második kör idő: {versenyzo.ido2}");
+                            Iras.WriteCentered("Új idő: ");
                             string ujido2 = Console.ReadLine();
                             if (ujido2 == "")
                             {
@@ -274,7 +278,8 @@ namespace Mikulásbácsihozta_PDD
                             {
                                 versenyzo.ido2 = double.Parse(ujido2);
                             }
-                            Iras.WriteCentered($"Jelenlegi harmadik kör pontszám: {versenyzo.pont3} Új pontszám: ");
+                            Iras.WriteLineCentered($"Jelenlegi harmadik kör pontszám: {versenyzo.pont3}");
+                            Iras.WriteCentered("Új pontszám: ");
                             string ujpont3 = Console.ReadLine();
                             if (ujpont3 == "")
                             {
@@ -294,7 +299,8 @@ namespace Mikulásbácsihozta_PDD
                             {
                                 versenyzo.pont3 = int.Parse(ujpont3);
                             }
-                            Iras.WriteCentered($"Jelenlegi harmadik kör idő: {versenyzo.ido3} Új idő: ");
+                            Iras.WriteLineCentered($"Jelenlegi harmadik kör idő: {versenyzo.ido3}");
+                            Iras.WriteCentered("Új idő: ");
                             string ujido3 = Console.ReadLine();
                             if (ujido3 == "")
                             {
