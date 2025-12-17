@@ -29,41 +29,42 @@ namespace Mikulásbácsihozta_PDD
 
         private static void MainMenu(MySqlConnection connection, List<User> users)
         {
-            int menu = TextDecoration.ArrowMenu(new string[] { "Versenyzők listázása", "Új versenyző rögzítése", "Versenyzők kezelése","HTML Generálása", "Kilépés" }, "=== FŐMENÜ ===");
+            int menu = Iras.ArrowMenu(new string[] { "Versenyzők listázása", "Új versenyző rögzítése", "Versenyzők kezelése","HTML Generálása", "Kilépés" }, "=== FŐMENÜ ===");
             switch (menu)
             {
+                //Versenyzők listázása
                 case 0:
                     Console.Clear();
                     users = HelyezesSzamito(connection);
-                    TextDecoration.WriteLineCentered("=== VERSENYZŐK LISTÁJA ===", "red");
-                    TextDecoration.WriteLineCentered(TextDecoration.CenterText("Helyezés | Név                | Legjobb pontszám | Legjobb idő", 70));
-                    TextDecoration.WriteLineCentered(new string('-', 70));
+                    Iras.WriteLineCentered("=== VERSENYZŐK LISTÁJA ===", "red");
+                    Iras.WriteLineCentered(Iras.CenterText("Helyezés | Név                | Legjobb pontszám | Legjobb idő", 70));
+                    Iras.WriteLineCentered(new string('-', 70));
                     foreach (var user in users)
                     {
-                        TextDecoration.WriteLineCentered(TextDecoration.CenterText($"{user.pillhely,8} | {user.Nev,-18} | {user.Legjobbpont,16} | {user.Legjobbido,11}", 70));
+                        Iras.WriteLineCentered(Iras.CenterText($"{user.pillhely,8} | {user.Nev,-18} | {user.Legjobbpont,16} | {user.Legjobbido,11}", 70));
                     }
-                    TextDecoration.WriteLineCentered(new string('-', 70));
-                    TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                    Iras.WriteLineCentered(new string('-', 70));
+                    Iras.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
                     Console.ReadKey();
 
                     break;
+                //Új versenyző rögzítése
                 case 1:
-                    #region Felhasználó felvétele
                     Console.Clear();
-                    TextDecoration.WriteLineCentered("=== ÚJ FELHASZNÁLÓ RÖGZÍTÉSE ===", "red");
-                    TextDecoration.WriteCentered("Add meg a versenyző nevét: ");
+                    Iras.WriteLineCentered("=== ÚJ FELHASZNÁLÓ RÖGZÍTÉSE ===", "red");
+                    Iras.WriteCentered("Add meg a versenyző nevét: ");
                     string nev = Console.ReadLine();
-                    TextDecoration.WriteCentered("Add meg versenyző első körben elért pontszámát: ");
+                    Iras.WriteCentered("Add meg versenyző első körben elért pontszámát: ");
                     int pont1 = int.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző első körben eltelt idejét: ");
+                    Iras.WriteCentered("Add meg versenyző első körben eltelt idejét: ");
                     double ido1 = double.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző második körben elért pontszámát: ");
+                    Iras.WriteCentered("Add meg versenyző második körben elért pontszámát: ");
                     int pont2 = int.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző második körben eltelt idejét: ");
+                    Iras.WriteCentered("Add meg versenyző második körben eltelt idejét: ");
                     double ido2 = double.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző harmadik körben elért pontszámát: ");
+                    Iras.WriteCentered("Add meg versenyző harmadik körben elért pontszámát: ");
                     int pont3 = int.Parse(Console.ReadLine());
-                    TextDecoration.WriteCentered("Add meg versenyző harmadik körben eltelt idejét: ");
+                    Iras.WriteCentered("Add meg versenyző harmadik körben eltelt idejét: ");
                     double ido3 = double.Parse(Console.ReadLine());
                     int legjobbpont = Math.Max(pont1, Math.Max(pont2, pont3));
                     double legjobbido = Math.Min(ido1, Math.Min(ido2, ido3));
@@ -103,19 +104,20 @@ namespace Mikulásbácsihozta_PDD
                     insertCmd.Parameters.AddWithValue("@legjobbido", legjobbido);
                     int sorokszama = insertCmd.ExecuteNonQuery();
                     string valasz = sorokszama > 0 ? "Sikeres hozzáadás" : "Sikertelen hozzáadás!";
-                    TextDecoration.WriteLineCentered(valasz,"green");
+                    Iras.WriteLineCentered(valasz,"green");
                     connection.Close();
                     Thread.Sleep(2000);
-                    #endregion
                     break;
+                //Versenyzők kezelése
                 case 2:
-                    int menu2 = TextDecoration.ArrowMenu(new string[] { "Versenyző módosítása","Versenyző törlése","Helyezések kiszámítása","Vissza" }, "=== VERSENYZŐ KEZELÉS ===");
+                    int menu2 = Iras.ArrowMenu(new string[] { "Versenyző módosítása","Versenyző törlése","Helyezések kiszámítása","Vissza" }, "=== VERSENYZŐ KEZELÉS ===");
                     switch (menu2)
                     {
+                        //Versenyző módosítása
                         case 0:
                             Console.Clear();
-                            TextDecoration.WriteLineCentered("=== VERSENYZŐ MÓDOSÍTÁSA ===");
-                            TextDecoration.WriteCentered("Add meg a módosítandó versenyző nevét: ");
+                            Iras.WriteLineCentered("=== VERSENYZŐ MÓDOSÍTÁSA ===");
+                            Iras.WriteCentered("Add meg a módosítandó versenyző nevét: ");
                             string modositandonev = Console.ReadLine();
                             int ellenorzes = 0;
                             User versenyzo = null;
@@ -131,58 +133,118 @@ namespace Mikulásbácsihozta_PDD
                                     ellenorzes++;
                                     if (ellenorzes == users.Count)
                                     {
-                                        TextDecoration.WriteLineCentered("Nincs ilyen nevű versenyző!", "red");
-                                        TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                                        Iras.WriteLineCentered("Nincs ilyen nevű versenyző!", "red");
+                                        Iras.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
                                         Console.ReadKey();
                                         return;
                                     }
                                 }
                             }
-                            TextDecoration.WriteLineCentered("Ha nem egy bizonyos adatot módosítani akkor arra nyomjon szóközt/entert.");
-                            TextDecoration.WriteCentered($"Jelenlegi név: {modositandonev} Új név: ");
+                            Iras.WriteLineCentered("Ha nem egy bizonyos adatot módosítani akkor arra nyomjon szóközt/entert.");
+                            Iras.WriteCentered($"Jelenlegi név: {modositandonev} Új név: ");
                             string ujnev = Console.ReadLine();
                             if (ujnev != "")
                             {
                                 modositandonev = ujnev;
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi pillanatnyi helyezés: {versenyzo.pillhely} Új helyezés: ");
+                            Iras.WriteCentered($"Jelenlegi pillanatnyi helyezés: {versenyzo.pillhely} Új helyezés: ");
                             string ujhelyezes = Console.ReadLine();
                             if (ujhelyezes != "")
                             {
                                 versenyzo.pillhely = int.Parse(ujhelyezes);
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi első kör pontszám: {versenyzo.pont1} Új pontszám: ");
+                            Iras.WriteCentered($"Jelenlegi első kör pontszám: {versenyzo.pont1} Új pontszám: ");
                             string ujpont1 = Console.ReadLine();
+                            while(!Ellenorzo.SzamEllenorzo(ujpont1)) 
+                            {
+                                Iras.WriteLineCentered("Hibás pontszám érték!", "red");
+                                Iras.WriteCentered("Add meg újra: ");
+                                ujpont1 = Console.ReadLine();
+                                if (ujpont1 == "")
+                                {
+                                    break;
+                                }
+                            }
                             if (ujpont1 != "")
                             {
                                 versenyzo.pont1 = int.Parse(ujpont1);
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi első kör idő: {versenyzo.ido1} Új idő: ");
+                            Iras.WriteCentered($"Jelenlegi első kör idő: {versenyzo.ido1} Új idő: ");
                             string ujido1 = Console.ReadLine();
+                            while (!Ellenorzo.IdoEllenorzo(ujido1))
+                            {
+                                Iras.WriteLineCentered("Hibás idő érték!", "red");
+                                Iras.WriteCentered("Add meg újra: ");
+                                ujido1 = Console.ReadLine();
+                                if (ujido1 == "")
+                                {
+                                    break;
+                                }
+                            }
                             if (ujido1 != "")
                             {
                                 versenyzo.ido1 = double.Parse(ujido1);
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi második kör pontszám: {versenyzo.pont2} Új pontszám: ");
+                            Iras.WriteCentered($"Jelenlegi második kör pontszám: {versenyzo.pont2} Új pontszám: ");
                             string ujpont2 = Console.ReadLine();
+                            while (!Ellenorzo.SzamEllenorzo(ujpont2))
+                            {
+                                Iras.WriteLineCentered("Hibás pontszám érték!", "red");
+                                Iras.WriteCentered("Add meg újra: ");
+                                ujpont2 = Console.ReadLine();
+                                if (ujpont2 == "")
+                                {
+                                    break;
+                                }
+                            }
                             if (ujpont2 != "")
                             {
                                 versenyzo.pont2 = int.Parse(ujpont2);
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi második kör idő: {versenyzo.ido2} Új idő: ");
+                            Iras.WriteCentered($"Jelenlegi második kör idő: {versenyzo.ido2} Új idő: ");
                             string ujido2 = Console.ReadLine();
+                            while (!Ellenorzo.IdoEllenorzo(ujido2))
+                            {
+                                Iras.WriteLineCentered("Hibás idő érték!", "red");
+                                Iras.WriteCentered("Add meg újra: ");
+                                ujido2 = Console.ReadLine();
+                                if (ujido2 == "")
+                                {
+                                    break;
+                                }
+                            }
                             if (ujido2 != "")
                             {
                                 versenyzo.ido2 = double.Parse(ujido2);
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi harmadik kör pontszám: {versenyzo.pont3} Új pontszám: ");
+                            Iras.WriteCentered($"Jelenlegi harmadik kör pontszám: {versenyzo.pont3} Új pontszám: ");
                             string ujpont3 = Console.ReadLine();
+                            while (!Ellenorzo.SzamEllenorzo(ujpont3))
+                            {
+                                Iras.WriteLineCentered("Hibás pontszám érték!", "red");
+                                Iras.WriteCentered("Add meg újra: ");
+                                ujpont3 = Console.ReadLine();
+                                if (ujpont3 == "")
+                                {
+                                    break;
+                                }
+                            }
                             if (ujpont3 != "")
                             {
                                 versenyzo.pont3 = int.Parse(ujpont3);
                             }
-                            TextDecoration.WriteCentered($"Jelenlegi harmadik kör idő: {versenyzo.ido3} Új idő: ");
+                            Iras.WriteCentered($"Jelenlegi harmadik kör idő: {versenyzo.ido3} Új idő: ");
                             string ujido3 = Console.ReadLine();
+                            while (!Ellenorzo.IdoEllenorzo(ujido3))
+                            {
+                                Iras.WriteLineCentered("Hibás idő érték!", "red");
+                                Iras.WriteCentered("Add meg újra: ");
+                                ujido3 = Console.ReadLine();
+                                if (ujido3 == "")
+                                {
+                                    break;
+                                }
+                            }
                             if (ujido3 != "")
                             {
                                 versenyzo.ido3 = double.Parse(ujido3);
@@ -205,13 +267,14 @@ namespace Mikulásbácsihozta_PDD
                             updatecmd.Parameters.AddWithValue("@legjobbido", ujlegjobbido);
                             updatecmd.ExecuteNonQuery();
                             connection.Close();
-                            TextDecoration.WriteLineCentered("Sikeres módosítás!", "green");
+                            Iras.WriteLineCentered("Sikeres módosítás!", "green");
                             Thread.Sleep(2000);
                             break;
+                        //Versenyző törlése
                         case 1:
                             Console.Clear();
-                            TextDecoration.WriteLineCentered("=== VERSENYZŐ TÖRLÉSE ===","red");
-                            TextDecoration.WriteCentered("Add meg a törlendő versenyző nevét: ");
+                            Iras.WriteLineCentered("=== VERSENYZŐ TÖRLÉSE ===","red");
+                            Iras.WriteCentered("Add meg a törlendő versenyző nevét: ");
                             string torlendonev = Console.ReadLine();
                             int torloellen = 0;
                             foreach (User user in users)
@@ -226,8 +289,8 @@ namespace Mikulásbácsihozta_PDD
                                     torloellen++;
                                     if (torloellen == users.Count)
                                     {
-                                        TextDecoration.WriteLineCentered("Nincs ilyen nevű versenyző!","red");
-                                        TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                                        Iras.WriteLineCentered("Nincs ilyen nevű versenyző!","red");
+                                        Iras.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
                                         Console.ReadKey();
                                         return;
                                     }
@@ -238,28 +301,31 @@ namespace Mikulásbácsihozta_PDD
                             MySqlCommand deletecmd = new MySqlCommand(deletesql, connection);
                             deletecmd.ExecuteNonQuery();
                             connection.Close();
-                            TextDecoration.WriteLineCentered("Sikeres törlés!","green");
+                            Iras.WriteLineCentered("Sikeres törlés!","green");
                             Thread.Sleep(2000);
                             break;
+                        //Helyezések kiszámítása
                         case 2:
                             Console.Clear();
-                            TextDecoration.WriteLineCentered("=== HELYEZÉSEK KISZÁMÍTÁSA ===", "red");
+                            Iras.WriteLineCentered("=== HELYEZÉSEK KISZÁMÍTÁSA ===", "red");
                             users = HelyezesSzamito(connection);
                             connection.Close();
-                            TextDecoration.WriteLineCentered("Helyezések sikeresen frissítve!", "green");
+                            Iras.WriteLineCentered("Helyezések sikeresen frissítve!", "green");
                             Thread.Sleep(2000);
                             break;
                     }
                     break;
+                //HTML generálása
                 case 3:
                     Console.Clear();
-                    TextDecoration.WriteLineCentered("=== HTML GENERÁLÁSA ===","red");
+                    Iras.WriteLineCentered("=== HTML GENERÁLÁSA ===","red");
                     users = HelyezesSzamito(connection);
                     HTMLController.HTMLGeneralo(users);
-                    TextDecoration.WriteLineCentered("HTML fájl sikeresen generálva!","green");
-                    TextDecoration.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
+                    Iras.WriteLineCentered("HTML fájl sikeresen generálva!","green");
+                    Iras.WriteLineCentered("Nyomj meg egy gombot a visszatéréshez...");
                     Console.ReadKey();
                     break;
+                //Kilépés
                 case 4:
                     Environment.Exit(0);
                     break;
@@ -269,7 +335,7 @@ namespace Mikulásbácsihozta_PDD
         private static List<User> HelyezesSzamito(MySqlConnection connection)
         {
             List<User> users = UserController.GetUsers();
-            users = users.OrderByDescending(u => u.Legjobbpont).ThenBy(u => u.Legjobbido).ToList();
+            users = users.OrderByDescending(user => user.Legjobbpont).ThenBy(user => user.Legjobbido).ToList();
             for (int i = 0; i < users.Count; i++)
             {
                 users[i].pillhely = i + 1;

@@ -10,7 +10,7 @@ namespace Mikulásbácsihozta_PDD.Models
     /// <summary>
     /// Olyan függvényeket tartalmaz amelyek a konzol szövegek dekorálására szolgálnak
     /// </summary>
-    internal class TextDecoration
+    internal class Iras
     {
         /// <summary>
         /// A függvény a Console.WriteLine középre íratását valósítja meg
@@ -19,8 +19,7 @@ namespace Mikulásbácsihozta_PDD.Models
         public static void WriteLineCentered(string text,string szin = "")
         // Console.WriteLine középre íratása
         {
-            int width = Console.WindowWidth;
-            int leftPadding = (width - text.Length) / 2;
+            int leftPadding = (Console.WindowWidth - text.Length) / 2;
             if (leftPadding < 0)
             {
                 leftPadding = 0;
@@ -40,8 +39,7 @@ namespace Mikulásbácsihozta_PDD.Models
         public static void WriteCentered(string text, string szin = "")
         // Console.Write középre íratása
         {
-            int width = Console.WindowWidth;
-            int leftPadding = (width - text.Length) / 2;
+            int leftPadding = (Console.WindowWidth - text.Length) / 2;
             if (leftPadding < 0)
             {
                 leftPadding = 0;
@@ -82,20 +80,20 @@ namespace Mikulásbácsihozta_PDD.Models
             do
             {
                 Console.Clear();
-                TextDecoration.WriteLineCentered(title,"red");
-                TextDecoration.WriteLineCentered("--------------------");
+                Iras.WriteLineCentered(title,"red");
+                Iras.WriteLineCentered("--------------------");
                 for (int i = 0; i < menupoints.Length; i++)
                 {
                     if (i == currentPoint)
                     {
-                        TextDecoration.WriteLineCentered($"> {menupoints[i]}","green");
+                        Iras.WriteLineCentered($"> {menupoints[i]}","green");
                     }
                     else
                     {
-                        TextDecoration.WriteLineCentered($"  {menupoints[i]}");
+                        Iras.WriteLineCentered($"  {menupoints[i]}");
                     }
                 }
-                TextDecoration.WriteLineCentered("--------------------");
+                Iras.WriteLineCentered("--------------------");
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Enter:

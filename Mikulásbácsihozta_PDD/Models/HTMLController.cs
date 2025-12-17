@@ -26,7 +26,7 @@ namespace Mikulásbácsihozta_PDD.Models
                     "\n</tr>";
                 tablazat += tablazatsor;
             }
-            string htmlTemplate = $@"
+            string html = $@"
         <!DOCTYPE html>
         <html lang=""hu"">
         <head>
@@ -136,7 +136,7 @@ namespace Mikulásbácsihozta_PDD.Models
             </footer>
         </body>
         </html>";
-        File.WriteAllText("verseny.html", htmlTemplate, System.Text.Encoding.UTF8);
+        File.WriteAllText("verseny.html", html, System.Text.Encoding.UTF8);
         }
     }
 }
