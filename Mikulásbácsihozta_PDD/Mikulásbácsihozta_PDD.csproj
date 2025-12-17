@@ -94,7 +94,7 @@
   <ItemGroup>
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Models\Ellenorzo.cs" />
-    <Compile Include="Models\HTMLController.cs" />
+    <Compile Include="Controller\HTMLController.cs" />
     <Compile Include="Models\Iras.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
