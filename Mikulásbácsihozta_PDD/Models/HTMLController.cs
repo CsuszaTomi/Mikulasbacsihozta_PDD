@@ -88,7 +88,7 @@ namespace Mikulásbácsihozta_PDD.Models
                             </table>
                         </div>
 
-                        <div class=""eredmenyablak flex-grow-1 border-start border-end border-bottom rounded-bottom arnyek"" id=""gorgetokontener"">
+                        <div class=""eredmenyablak flex-grow-1 border-start border-end border-bottom rounded-bottom arnyek table-responsive"" id=""gorgetokontener"">
                             <div id=""gorgetotartalom"">
                                 <table class=""table table-striped table-hover mb-0 egyeditabla"">
                                     <tbody>
@@ -136,7 +136,10 @@ namespace Mikulásbácsihozta_PDD.Models
             </footer>
         </body>
         </html>";
-        File.WriteAllText("verseny.html", html, System.Text.Encoding.UTF8);
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+            string projectPath = Path.GetFullPath(Path.Combine(basePath, @"..\..\html"));
+            string filePath = Path.Combine(projectPath, "verseny.html");
+            File.WriteAllText(filePath, html, System.Text.Encoding.UTF8);
         }
     }
 }
