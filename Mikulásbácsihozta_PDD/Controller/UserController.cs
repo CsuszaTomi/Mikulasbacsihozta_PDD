@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Mikulásbácsihozta_PDD.Models;
 using MySql.Data.MySqlClient;
@@ -41,9 +42,8 @@ namespace Mikulásbácsihozta_PDD.Controller
             return users;
         }
 
-        static public void UserModositas(MySqlConnection connection)
+        static public void UserModositas(MySqlConnection connection, List<User> users)
         {
-            List<User> users = GetUsers();
             Console.Clear();
             Iras.WriteLineCentered("=== VERSENYZŐ MÓDOSÍTÁSA ===", "red");
             Iras.WriteCentered("Add meg a módosítandó versenyző nevét: ");
@@ -225,9 +225,8 @@ namespace Mikulásbácsihozta_PDD.Controller
             Iras.WriteLineCentered("Sikeres módosítás!", "green");
         }
 
-        static public void UserTorles(MySqlConnection connection)
+        static public void UserTorles(MySqlConnection connection, List<User> users)
         {
-            List<User> users = GetUsers();
             Console.Clear();
             Iras.WriteLineCentered("=== VERSENYZŐ TÖRLÉSE ===", "red");
             Iras.WriteCentered("Add meg a törlendő versenyző nevét: ");
@@ -260,6 +259,7 @@ namespace Mikulásbácsihozta_PDD.Controller
             deletecmd.ExecuteNonQuery();
             connection.Close();
             Iras.WriteLineCentered("Sikeres törlés!", "green");
+            Thread.Sleep(2000);
         }
     }
 }

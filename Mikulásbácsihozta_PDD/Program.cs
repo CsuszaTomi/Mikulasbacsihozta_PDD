@@ -161,13 +161,12 @@ namespace Mikulásbácsihozta_PDD
                     {
                         //Versenyző módosítása
                         case 0:
-                            UserController.UserModositas(connection);
+                            UserController.UserModositas(connection,users);
                             Thread.Sleep(2000);
                             break;
                         //Versenyző törlése
                         case 1:
-                            UserController.UserTorles(connection);
-                            Thread.Sleep(2000);
+                            UserController.UserTorles(connection,users);
                             break;
                         //Helyezések kiszámítása
                         case 2:
