@@ -311,7 +311,7 @@ namespace Mikulásbácsihozta_PDD.Controller
             int ujlegjobbpont = Math.Max(versenyzo.pont1, Math.Max(versenyzo.pont2, versenyzo.pont3));
             double ujlegjobbido = Math.Min(versenyzo.ido1, Math.Min(versenyzo.ido2, versenyzo.ido3));
             connection.Open();
-            string updatesql = $"UPDATE kalaplengetőverseny_pdd.versenyzok SET `ID`=@id,`Nev`=@nev,`pillanatnyihelyezes`=@pillanatnyihelyezes,`pont1`=@pont1,`ido1`=@ido1,`pont2`=@pont2,`ido2`=@ido2,`pont3`=@pont3,`ido3`=@ido3,`legjobbpont`=@legjobbpont,`legjobbido`=@legjobbido WHERE Nev = @eredetinev";
+            string updatesql = $"UPDATE kalaplengetőverseny_pdd.versenyzok SET `ID`=@id,`Nev`=@nev,`pillanatnyihelyezes`=@pillanatnyihelyezes,`pont1`=@pont1,`ido1`=@ido1,`pont2`=@pont2,`ido2`=@ido2,`pont3`=@pont3,`ido3`=@ido3,`legjobbpont`=@legjobbpont,`legjobbido`=@legjobbido WHERE Id = @id";
             MySqlCommand updatecmd = new MySqlCommand(updatesql, connection);
             updatecmd.Parameters.AddWithValue("@id", versenyzo.Id);
             updatecmd.Parameters.AddWithValue("@nev", modositandonev);
@@ -358,9 +358,9 @@ namespace Mikulásbácsihozta_PDD.Controller
                 }
             }
             connection.Open();
-            string deletesql = $"DELETE FROM kalaplengetőverseny_pdd.versenyzok WHERE Nev = @nev";
+            string deletesql = $"DELETE FROM kalaplengetőverseny_pdd.versenyzok WHERE Id = @id";
             MySqlCommand deletecmd = new MySqlCommand(deletesql, connection);
-            deletecmd.Parameters.AddWithValue("@nev", torlendonev);
+            deletecmd.Parameters.AddWithValue("@id", versenyzo.Id);
             deletecmd.ExecuteNonQuery();
             connection.Close();
             Iras.WriteLineCentered("Sikeres törlés!", "green");
