@@ -42,6 +42,111 @@ namespace Mikulásbácsihozta_PDD.Controller
             return users;
         }
 
+        static public void UserHozzaAdas(MySqlConnection connection,List<User> users)
+        {
+            Console.Clear();
+            Iras.WriteLineCentered("=== ÚJ FELHASZNÁLÓ RÖGZÍTÉSE ===", "red");
+            Iras.WriteCentered("Add meg a versenyző nevét: ");
+            string nev = Console.ReadLine();
+            if (nev == "")
+            {
+                return;
+            }
+            Iras.WriteCentered("Add meg versenyző első körben elért pontszámát: ");
+            string pont1 = Console.ReadLine();
+            while (!Ellenorzo.SzamEllenorzo(pont1) || pont1 == "")
+            {
+                Iras.WriteLineCentered("Hibás pontszám érték!", "red");
+                Iras.WriteCentered("Add meg újra: ");
+                pont1 = Console.ReadLine();
+            }
+            int pont1int = int.Parse(pont1);
+            Iras.WriteCentered("Add meg versenyző első körben eltelt idejét: ");
+            string ido1 = Console.ReadLine();
+            while (!Ellenorzo.IdoEllenorzo(ido1) || ido1 == "")
+            {
+                Iras.WriteLineCentered("Hibás idő érték!", "red");
+                Iras.WriteCentered("Add meg újra: ");
+                ido1 = Console.ReadLine();
+            }
+            double ido1double = double.Parse(ido1);
+            Iras.WriteCentered("Add meg versenyző második körben elért pontszámát: ");
+            string pont2 = Console.ReadLine();
+            while (!Ellenorzo.SzamEllenorzo(pont2) || pont2 == "")
+            {
+                Iras.WriteLineCentered("Hibás pontszám érték!", "red");
+                Iras.WriteCentered("Add meg újra: ");
+                pont2 = Console.ReadLine();
+            }
+            int pont2int = int.Parse(pont2);
+            Iras.WriteCentered("Add meg versenyző második körben eltelt idejét: ");
+            string ido2 = Console.ReadLine();
+            while (!Ellenorzo.IdoEllenorzo(ido2) || ido2 == "")
+            {
+                Iras.WriteLineCentered("Hibás idő érték!", "red");
+                Iras.WriteCentered("Add meg újra: ");
+                ido2 = Console.ReadLine();
+            }
+            double ido2double = double.Parse(ido2);
+            Iras.WriteCentered("Add meg versenyző harmadik körben elért pontszámát: ");
+            string pont3 = Console.ReadLine();
+            while (!Ellenorzo.SzamEllenorzo(pont3) || pont3 == "")
+            {
+                Iras.WriteLineCentered("Hibás pontszám érték!", "red");
+                Iras.WriteCentered("Add meg újra: ");
+                pont3 = Console.ReadLine();
+            }
+            int pont3int = int.Parse(pont3);
+            Iras.WriteCentered("Add meg versenyző harmadik körben eltelt idejét: ");
+            string ido3 = Console.ReadLine();
+            while (!Ellenorzo.IdoEllenorzo(ido3) || ido3 == "")
+            {
+                Iras.WriteLineCentered("Hibás idő érték!", "red");
+                Iras.WriteCentered("Add meg újra: ");
+                ido3 = Console.ReadLine();
+            }
+            double ido3double = double.Parse(ido3);
+            int legjobbpont = Math.Max(pont1int, Math.Max(pont2int, pont3int));
+            double legjobbido = Math.Min(ido1double, Math.Min(ido2double, ido3double));
+            int pillanatnyihelyezes = 1;
+            foreach (var user in users)
+            {
+                if (legjobbpont < user.Legjobbpont)
+                {
+                    pillanatnyihelyezes++;
+                }
+                else if (legjobbpont == user.Legjobbpont && legjobbido > user.Legjobbido)
+                {
+                    pillanatnyihelyezes++;
+                }
+            }
+            int id = 0;
+            foreach (User user in users)
+            {
+                if (user.Id >= id)
+                {
+                    id = user.Id + 1;
+                }
+            }
+            connection.Open();
+            string insertsql = $"INSERT INTO kalaplengetőverseny_pdd.versenyzok (`ID`, `Nev`, `pillanatnyihelyezes`, `pont1`, `ido1`, `pont2`, `ido2`,`pont3`, `ido3`,`legjobbpont`, `legjobbido`) VALUES (@id,@nev,@pillanatnyihelyezes,@pont1,@ido1,@pont2,@ido2,@pont3,@ido3,@legjobbpont,@legjobbido)";
+            MySqlCommand insertCmd = new MySqlCommand(insertsql, connection);
+            insertCmd.Parameters.AddWithValue("@id", id);
+            insertCmd.Parameters.AddWithValue("@nev", nev);
+            insertCmd.Parameters.AddWithValue("@pillanatnyihelyezes", pillanatnyihelyezes);
+            insertCmd.Parameters.AddWithValue("@pont1", pont1int);
+            insertCmd.Parameters.AddWithValue("@ido1", ido1double);
+            insertCmd.Parameters.AddWithValue("@pont2", pont2int);
+            insertCmd.Parameters.AddWithValue("@ido2", ido2double);
+            insertCmd.Parameters.AddWithValue("@pont3", pont3int);
+            insertCmd.Parameters.AddWithValue("@ido3", ido3double);
+            insertCmd.Parameters.AddWithValue("@legjobbpont", legjobbpont);
+            insertCmd.Parameters.AddWithValue("@legjobbido", legjobbido);
+            int sorokszama = insertCmd.ExecuteNonQuery();
+            string valasz = sorokszama > 0 ? "Sikeres hozzáadás" : "Sikertelen hozzáadás!";
+            Iras.WriteLineCentered(valasz, "green");
+            connection.Close();
+        }
         static public void UserModositas(MySqlConnection connection, List<User> users)
         {
             Console.Clear();
