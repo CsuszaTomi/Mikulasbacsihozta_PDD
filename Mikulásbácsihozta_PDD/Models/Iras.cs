@@ -83,7 +83,7 @@ namespace Mikulásbácsihozta_PDD.Models
             {
                 Console.Clear();
                 Iras.WriteLineCentered(title,"red");
-                Iras.WriteLineCentered("--------------------");
+                Iras.WriteLineCentered("===================");
                 for (int i = 0; i < menupoints.Length; i++)
                 {
                     if (i == currentPoint)
@@ -95,7 +95,7 @@ namespace Mikulásbácsihozta_PDD.Models
                         Iras.WriteLineCentered($"  {menupoints[i]}");
                     }
                 }
-                Iras.WriteLineCentered("--------------------");
+                Iras.WriteLineCentered("===================");
                 switch (Console.ReadKey(true).Key)
                 {
                     case ConsoleKey.Enter:
